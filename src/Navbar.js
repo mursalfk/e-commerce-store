@@ -7,7 +7,6 @@ import AddProduct from './components/AddProduct';
 import Cart from './components/Cart';
 import Login from './components/Login';
 import ProductList from './components/ProductList';
-import './App.css'
 
 import Context from "./Context";
 
@@ -207,38 +206,11 @@ export default class App extends Component {
               <h1 className="title">
                 Welcome to Ecommerce Store
               </h1>
-              <span className="subtitle">
-                Project Submitted by:
-                <table className="table is-bordered is-striped is-narrow is-hoverable">
-                  <thead>
-                    <tr>
-                      <th>Student ID</th>
-                      <th>Student Name</th>
-                      <th>Student Email</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>2047419</td>
-                      <td>Mursal Furqan Kumbhar</td>
-                      <td>kumbhar.2047419@studenti.uniroma</td>
-                    </tr>
-                    <tr>
-                      <td>2053796</td>
-                      <td>Srinjan Ghosh</td>
-                      <td>ghosh.2053796@studenti.uniroma1.it</td>
-                    </tr>
-                    <tr>
-                      <td>2049050</td>
-                      <td>Muhammad Waseem Kalhoro</td>
-                      <td>kalhoro.2049050@studenti.uniroma1.it</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <span className="profName">
-                  Submited to: Prof. Emiliano Casalicchio
-                </span>
-              </span>
+              <h2 className="subtitle">
+                Project Created by
+                {/* Table */}
+                
+              </h2>
             </div>
           </div>
         </section>
