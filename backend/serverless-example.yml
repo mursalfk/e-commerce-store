@@ -1,0 +1,24 @@
+service: my-service
+frameworkVersion: "3"
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-plugin-optimize
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-southeast-2
+  stage: dev
+  profile: mursal-dev
+
+functions:
+  someFunction:
+    handler: handler.someFunction
+    events:
+      - http: POST /
+  someOtherFunction:
+    handler: handler.someOtherFunction
+    events:
+      - http: GET /

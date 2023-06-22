@@ -1,0 +1,30 @@
+service: products
+frameworkVersion: "3"
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-plugin-optimize
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-south-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "secretsmanager:GetSecretValue"
+        - "secretsmanager:DescribeSecret"
+        - "secretsmanager:ListSecrets"
+      Resource: "*"
+  stage: dev
+  profile: mursal-dev
+
+functions:
+  testfunc:
+    handler: handler.handler
+    events:
+      - http:
+          path: /api/v1/products
+          method: post
+          cors: true
