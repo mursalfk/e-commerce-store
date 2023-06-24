@@ -1,0 +1,28 @@
+{
+    "name": "@services/products",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "start": "yarn && yarn local",
+        "clean": "rm -rf .build .serverless",
+        "local": "yarn clean && serverless offline",
+        "deploy": "yarn clean && yarn && yarn sls:deploy",
+        "sls": "serverless",
+        "sls:deploy": "yarn sls deploy",
+        "test": "yarn build:shared && jest --forceExit"
+    },
+    "description": "",
+    "devDependencies": {
+        "@tsconfig/node14": "^1.0.1",
+        "@types/aws-lambda": "8.10.92",
+        "serverless": "^3.18.2",
+        "serverless-offline": "8.3.1",
+        "serverless-plugin-optimize": "4.2.1-rc.1",
+        "serverless-plugin-typescript": "^2.1.2",
+        "typescript": "^4.6.3"
+    },
+    "dependencies": {
+        "mongodb": "^5.2.0",
+        "node-fetch": "2.6.1"
+    }
+}
