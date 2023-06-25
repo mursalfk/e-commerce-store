@@ -45,10 +45,11 @@
       "description": "Cras sagittis. Praesent nec nisl a purus blandit viverra. Ut leo. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Fusce a quam."
     },
     {
+      "_id": "6498038f1fee0d55a3999437",
       "id": "iin0wh1ljtblipqjrih",
       "name": "Example Shoes",
       "price": "299.5",
-      "stock": "45",
+      "stock": 44,
       "shortDesc": "High end shoes",
       "description": "High end shoes to create a product on 10th June, 2023"
     }
