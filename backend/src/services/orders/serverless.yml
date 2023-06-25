@@ -1,4 +1,4 @@
-service: products
+service: orders
 frameworkVersion: "3"
 
 plugins:
@@ -12,40 +12,42 @@ provider:
   region: ap-south-1
   stage: dev
   profile: mursal-dev
+  environment:
+    DATABASE_NAME: "ecomm_dev"
 
 functions:
-  getProducts:
-    handler: handler.getProducts
+  getOrders:
+    handler: handler.getOrders
     events:
       - http:
-          path: /api/v1/getAllProducts
+          path: /api/v1/getAllOrders
           method: get
           cors: true
-  addProduct:
-    handler: handler.addProduct
+  addOrder:
+    handler: handler.addOrder
     events:
       - http:
-          path: /api/v1/addProduct
+          path: /api/v1/addOrder
           method: post
           cors: true
-  updateProduct:
-    handler: handler.updateProduct
+  updateOrder:
+    handler: handler.updateOrder
     events:
       - http:
-          path: /api/v1/updateProduct
+          path: /api/v1/updateOrder
           method: put
           cors: true
-  deleteProduct:
-    handler: handler.deleteProduct
+  deleteOrder:
+    handler: handler.deleteOrder
     events:
       - http:
-          path: /api/v1/deleteProduct
+          path: /api/v1/deleteOrder
           method: delete
           cors: true
-  getProductById:
-    handler: handler.getProductById
+  getOrderById:
+    handler: handler.getOrderById
     events:
       - http:
-          path: /api/v1/getProductById
+          path: /api/v1/getOrderById
           method: get
           cors: true
