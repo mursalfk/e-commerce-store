@@ -74,7 +74,7 @@ class Login extends Component {
         </form>
       </>
     ) : (
-      <Redirect to="/products" />
+      <Redirect to="/" />
     );
   }
 }

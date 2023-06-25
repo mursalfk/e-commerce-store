@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import withContext from "../withContext";
 import CartItem from "./CartItem";
 
-const Cart = props => {
+const Cart = (props) => {
   const { cart } = props.context;
   const cartKeys = Object.keys(cart || {});
+  const [showNotification, setShowNotification] = useState(false);
+
+  const handleClearCart = () => {
+    setShowNotification(true);
+    setTimeout(() => {
+      setShowNotification(false);
+      props.context.clearCart();
+    }, 3000);
+  };
+
   return (
     <>
       <div className="hero is-primary">
@@ -16,7 +26,7 @@ const Cart = props => {
       <div className="container">
         {cartKeys.length ? (
           <div className="column columns is-multiline">
-            {cartKeys.map(key => (
+            {cartKeys.map((key) => (
               <CartItem
                 cartKey={key}
                 key={key}
@@ -28,8 +38,8 @@ const Cart = props => {
               <br />
               <div className="is-pulled-right">
                 <button
-                  onClick={props.context.clearCart}
-                  className="button is-warning "
+                  onClick={handleClearCart}
+                  className="button is-warning"
                 >
                   Clear cart
                 </button>{" "}
@@ -48,6 +58,11 @@ const Cart = props => {
           </div>
         )}
       </div>
+      {showNotification && (
+        <div className="notification is-success cart-notification">
+          Cart cleared successfully!
+        </div>
+      )}
     </>
   );
 };

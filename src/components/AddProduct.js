@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import withContext from "../withContext";
 import { Redirect } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 const initState = {
   name: "",
   price: "",
   stock: "",
   shortDesc: "",
-  description: ""
+  description: "",
 };
 
 class AddProduct extends Component {
@@ -22,12 +22,13 @@ class AddProduct extends Component {
     const { name, price, stock, shortDesc, description } = this.state;
 
     if (name && price) {
-      const id = Math.random().toString(36).substring(2) + Date.now().toString(36);
+      const id =
+        Math.random().toString(36).substring(2) + Date.now().toString(36);
 
       await axios.post(
-        'https://xw7qzi3dgg.execute-api.ap-south-1.amazonaws.com/dev/api/v1/addProduct',
-        { id, name, price, stock, shortDesc, description },
-      )
+        "https://xw7qzi3dgg.execute-api.ap-south-1.amazonaws.com/dev/api/v1/addProduct",
+        { id, name, price, stock, shortDesc, description }
+      );
 
       this.props.context.addProduct(
         {
@@ -35,22 +36,22 @@ class AddProduct extends Component {
           price,
           shortDesc,
           description,
-          stock: stock || 0
+          stock: stock || 0,
         },
         () => this.setState(initState)
       );
-      this.setState(
-        { flash: { status: 'is-success', msg: 'Product created successfully' }}
-      );
-
+      this.setState({
+        flash: { status: "is-success", msg: "Product created successfully" },
+      });
     } else {
-      this.setState(
-        { flash: { status: 'is-danger', msg: 'Please enter name and price' }}
-      );
+      this.setState({
+        flash: { status: "is-danger", msg: "Please enter name and price" },
+      });
     }
   };
 
-  handleChange = e => this.setState({ [e.target.name]: e.target.value, error: "" });
+  handleChange = (e) =>
+    this.setState({ [e.target.name]: e.target.value, error: "" });
 
   render() {
     const { name, price, stock, shortDesc, description } = this.state;
@@ -59,89 +60,96 @@ class AddProduct extends Component {
     return !(user && user.accessLevel < 1) ? (
       <Redirect to="/" />
     ) : (
-      <>
-        <div className="hero is-primary ">
-          <div className="hero-body container">
-            <h4 className="title">Add Product</h4>
-          </div>
-        </div>
-        <br />
-        <br />
-        <form onSubmit={this.save}>
-          <div className="columns is-mobile is-centered">
-            <div className="column is-one-third">
-              <div className="field">
-                <label className="label">Product Name: </label>
-                <input
-                  className="input"
-                  type="text"
-                  name="name"
-                  value={name}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-              <div className="field">
-                <label className="label">Price: </label>
-                <input
-                  className="input"
-                  type="number"
-                  name="price"
-                  value={price}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-              <div className="field">
-                <label className="label">Available in Stock: </label>
-                <input
-                  className="input"
-                  type="number"
-                  name="stock"
-                  value={stock}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="field">
-                <label className="label">Short Description: </label>
-                <input
-                  className="input"
-                  type="text"
-                  name="shortDesc"
-                  value={shortDesc}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="field">
-                <label className="label">Description: </label>
-                <textarea
-                  className="textarea"
-                  type="text"
-                  rows="2"
-                  style={{ resize: "none" }}
-                  name="description"
-                  value={description}
-                  onChange={this.handleChange}
-                />
-              </div>
-              {this.state.flash && (
-                <div className={`notification ${this.state.flash.status}`}>
-                  {this.state.flash.msg}
+      <section className="section">
+        <div className="container">
+          <h1 className="title has-text-centered">Add Product</h1>
+          <form onSubmit={this.save}>
+            <div className="columns is-centered">
+              <div className="column is-one-third">
+                <div className="field">
+                  <label className="label">Product Name:</label>
+                  <div className="control">
+                    <input
+                      className="input"
+                      type="text"
+                      name="name"
+                      value={name}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </div>
                 </div>
-              )}
-              <div className="field is-clearfix">
-                <button
-                  className="button is-primary is-outlined is-pulled-right"
-                  type="submit"
-                  onClick={this.save}
-                >
-                  Submit
-                </button>
+                <div className="field">
+                  <label className="label">Price:</label>
+                  <div className="control">
+                    <input
+                      className="input"
+                      type="number"
+                      name="price"
+                      value={price}
+                      onChange={this.handleChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="field">
+                  <label className="label">Available in Stock:</label>
+                  <div className="control">
+                    <input
+                      className="input"
+                      type="number"
+                      name="stock"
+                      value={stock}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="field">
+                  <label className="label">Short Description:</label>
+                  <div className="control">
+                    <input
+                      className="input"
+                      type="text"
+                      name="shortDesc"
+                      value={shortDesc}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                </div>
+                <div className="field">
+                  <label className="label">Description:</label>
+                  <div className="control">
+                    <textarea
+                      className="textarea"
+                      rows="2"
+                      style={{ resize: "none" }}
+                      name="description"
+                      value={description}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                </div>
+                {this.state.flash && (
+                  <div
+                    className={`notification ${this.state.flash.status}`}
+                  >
+                    {this.state.flash.msg}
+                  </div>
+                )}
+                <div className="field is-clearfix">
+                  <button
+                    className="button is-primary is-outlined is-pulled-right"
+                    type="submit"
+                    onClick={this.save}
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </form>
-      </>
+          </form>
+        </div>
+      </section>
     );
   }
 }
