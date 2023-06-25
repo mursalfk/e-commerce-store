@@ -1,7 +1,6 @@
 import { APIGatewayProxyHandler, APIGatewayProxyEvent } from "aws-lambda"
 import { MongoClient, ServerApiVersion, ObjectId } from "mongodb"
 import { generateResponse } from "./helpers"
-import fetch from "node-fetch"
 
 
 const mongoDBConnection = async () => {
@@ -16,96 +15,95 @@ const mongoDBConnection = async () => {
   return client
 }
 
-export const getProducts: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
+export const getOrders: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
   try {
     const client = await mongoDBConnection()
     await client.connect()
-
     const { page = "1", limit = "20" } = event.queryStringParameters
     const skip = (parseInt(page) - 1) * parseInt(limit)
 
-    const products = await client
+    const Orders = await client
       .db(process.env.DATABASE_NAME)
-      .collection("products")
+      .collection("Orders")
       .find({})
       .skip(skip)
       .limit(parseInt(limit))
       .toArray()
 
     const nextSkip = skip + parseInt(limit)
-    const count = await client.db(process.env.DATABASE_NAME).collection("products").countDocuments()
+    const count = await client.db(process.env.DATABASE_NAME).collection("Orders").countDocuments()
     const nextPageUrl = count > nextSkip ? `${event.path}?page=${parseInt(page) + 1}&limit=${limit}` : null
 
     await client.close()
 
-    return generateResponse(200, { message: "Success", products, nextPageUrl })
+    return generateResponse(200, { message: "Success", Orders, nextPageUrl })
   } catch (err) {
     console.error(err)
     return generateResponse(500, { message: "Error" })
   }
 }
 
-export const addProduct: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
+export const addOrder: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
   try {
     const client = await mongoDBConnection()
     await client.connect()
-    const product = JSON.parse(event.body)
-    const productObject = await client.db(process.env.DATABASE_NAME).collection("products").insertOne(product)
+    const Order = JSON.parse(event.body)
+    const OrderObject = await client.db(process.env.DATABASE_NAME).collection("Orders").insertOne(Order)
 
     await client.close()
 
-    return generateResponse(200, { message: "Product added successfully" , objectId: productObject.insertedId})
+    return generateResponse(200, { message: "Order added successfully" , objectId: OrderObject.insertedId})
   } catch (err) {
     console.error(err)
-    return generateResponse(500, { message: "Failed to add listing" })
+    return generateResponse(500, { message: "Failed to add order" })
   }
 }
 
-export const updateProduct: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
+export const updateOrder: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
   try {
     const client = await mongoDBConnection()
     await client.connect()
 
-    const product = JSON.parse(event.body)
-    await client.db(process.env.DATABASE_NAME).collection("products").updateOne({ _id: product._id }, { $set: product })
+    const Order = JSON.parse(event.body)
+    await client.db(process.env.DATABASE_NAME).collection("Orders").updateOne({ _id: Order._id }, { $set: Order })
     await client.close()
-    return generateResponse(200, { message: "Product updated successfully" })
+    return generateResponse(200, { message: "Order updated successfully" })
   } catch (err) {
     console.error(err)
-    return generateResponse(500, { message: "Failed to update listing" })
+    return generateResponse(500, { message: "Failed to update order" })
   }
 }
 
-export const deleteProduct: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
+export const deleteOrder: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
   try {
     const client = await mongoDBConnection()
     await client.connect()
 
-    // Delete the listing from the database
-    const productId = event.pathParameters.id
+    // Delete the order from the database
+    const OrderId = event.pathParameters.id
     await client
       .db(process.env.DATABASE_NAME)
-      .collection("products")
-      .deleteOne({ _id: new ObjectId(productId) })
+      .collection("Orders")
+      .deleteOne({ _id: new ObjectId(OrderId) })
     await client.close()
 
-    return generateResponse(200, { message: "Product deleted successfully" })
+    return generateResponse(200, { message: "Order deleted successfully" })
   } catch (err) {
     console.error(err)
-    return generateResponse(500, { message: "Failed to delete listing" })
+    return generateResponse(500, { message: "Failed to delete order" })
   }
 }
 
-export const getProductById: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
+export const getOrderById: APIGatewayProxyHandler = async (event: APIGatewayProxyEvent) => {
   console.log(event)
   try {
     const client = await mongoDBConnection()
     await client.connect()
     const { id } = event.queryStringParameters
-    const product = await client.db(process.env.DATABASE_NAME).collection("products").findOne({ _id: new ObjectId(id) })
+    const Order = await client.db(process.env.DATABASE_NAME).collection("Orders").findOne({ _id: new ObjectId(id) })
     await client.close()
 
-    return generateResponse(200, { message: "Success", product })
+    return generateResponse(200, { message: "Success", Order })
   } catch (err) {
     console.error(err)
     return generateResponse(500, { message: "Error" })

@@ -20,7 +20,6 @@ export const getProducts: APIGatewayProxyHandler = async (event: APIGatewayProxy
   try {
     const client = await mongoDBConnection()
     await client.connect()
-
     const { page = "1", limit = "20" } = event.queryStringParameters
     const skip = (parseInt(page) - 1) * parseInt(limit)
 
@@ -57,7 +56,7 @@ export const addProduct: APIGatewayProxyHandler = async (event: APIGatewayProxyE
     return generateResponse(200, { message: "Product added successfully" , objectId: productObject.insertedId})
   } catch (err) {
     console.error(err)
-    return generateResponse(500, { message: "Failed to add listing" })
+    return generateResponse(500, { message: "Failed to add product" })
   }
 }
 
@@ -72,7 +71,7 @@ export const updateProduct: APIGatewayProxyHandler = async (event: APIGatewayPro
     return generateResponse(200, { message: "Product updated successfully" })
   } catch (err) {
     console.error(err)
-    return generateResponse(500, { message: "Failed to update listing" })
+    return generateResponse(500, { message: "Failed to update product" })
   }
 }
 
@@ -92,7 +91,7 @@ export const deleteProduct: APIGatewayProxyHandler = async (event: APIGatewayPro
     return generateResponse(200, { message: "Product deleted successfully" })
   } catch (err) {
     console.error(err)
-    return generateResponse(500, { message: "Failed to delete listing" })
+    return generateResponse(500, { message: "Failed to delete product" })
   }
 }
 

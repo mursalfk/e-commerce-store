@@ -12,6 +12,8 @@ provider:
   region: ap-south-1
   stage: dev
   profile: mursal-dev
+  environment:
+    DATABASE_NAME: "ecomm_dev"
 
 functions:
   getProducts:
