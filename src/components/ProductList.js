@@ -10,6 +10,7 @@ const ProductList = (props) => {
       <div className="container">
         <h1 className="title has-text-centered">Our Products</h1>
         <div className="columns is-multiline">
+          {console.log(products)}
           {products && products.length ? (
             products.map((product, index) => (
               <ProductItem

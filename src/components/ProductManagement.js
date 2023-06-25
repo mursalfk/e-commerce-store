@@ -58,9 +58,10 @@ const ProjectManagement = () => {
   };
 
   const saveProduct = async (productId) => {
+    console.log("editedProduct:", editedProduct)
     try {
       await axios.put(
-        `https://xw7qzi3dgg.execute-api.ap-south-1.amazonaws.com/dev/api/v1/products/${productId}`,
+        `https://xw7qzi3dgg.execute-api.ap-south-1.amazonaws.com/dev/api/v1/updateProduct/`,
         editedProduct
       );
       setProducts(

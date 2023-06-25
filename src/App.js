@@ -14,6 +14,7 @@ import About from './components/About';
 
 import Context from "./Context";
 import Navbar from "./Navbar";
+import Orders from "./components/Orders";
 
 const App = () => {
   const [user, setUser] = React.useState(null);
@@ -97,7 +98,7 @@ const App = () => {
     setCart(updatedCart);
   };
 
-  const checkout = () => {
+  const checkout = async () => {
     if (!user) {
       routerRef.current.history.push("/login");
       return;
@@ -110,7 +111,7 @@ const App = () => {
         p.stock = p.stock - updatedCart[p.name].amount;
 
         axios.put(
-          `http://localhost:3001/products/${p.id}`,
+          `https://xw7qzi3dgg.execute-api.ap-south-1.amazonaws.com/dev/api/v1/updateProduct/${p.id}`,
           { ...p },
         );
       }
@@ -160,6 +161,7 @@ const App = () => {
             <Route exact path="/add-product" component={AddProduct} />
             <Route exact path="/products" component={ProductList} />
             <Route exact path="/project-management" component={ProjectManagement} />
+            <Route exact path="/orders" component={Orders} />
             <Route exact path="/about" component={About} />
           </Switch>
         </div>
