@@ -41,11 +41,11 @@ const Navbar = ({ user, logout, cart }) => {
               <Link to="/project-management" className="navbar-item">
                 Product Management
               </Link>
-              <Link to="/orders" className="navbar-item">
-                Orders
-              </Link>
             </>
           )}
+          <Link to="/orders" className="navbar-item">
+            Orders
+          </Link>
         </div>
         <div className="navbar-end">
           <div className="navbar-item">

@@ -104,20 +104,28 @@ const App = () => {
       return;
     }
 
+    const checkoutCart = {}
     const updatedCart = { ...cart };
+    checkoutCart.items = Object.values(updatedCart);
+    checkoutCart.timestamp = Date.now();
+    checkoutCart.user = user.email;
+    checkoutCart.status = "Ordered";
+
+    console.log(checkoutCart);
+
+    await axios.post(
+      "https://zm06kfxmx0.execute-api.ap-south-1.amazonaws.com/dev/api/v1/addOrder",
+      { checkoutCart }
+    );
 
     const updatedProducts = products.map(p => {
       if (updatedCart[p.name]) {
         p.stock = p.stock - updatedCart[p.name].amount;
-
-        axios.put(
-          `https://xw7qzi3dgg.execute-api.ap-south-1.amazonaws.com/dev/api/v1/updateProduct/${p.id}`,
-          { ...p },
-        );
       }
       return p;
     });
 
+    // console.log(updatedProducts);
     setProducts(updatedProducts);
     clearCart();
   };
