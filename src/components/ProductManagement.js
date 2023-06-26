@@ -3,10 +3,31 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Context from "../Context";
 
-const ProjectManagement = () => {
+const ConfirmationModal = ({ message, onConfirm, onCancel }) => (
+  <div className="modal is-active">
+    <div className="modal-background" />
+    <div className="modal-content">
+      <div className="box">
+        <p>{message}</p>
+        <div className="buttons">
+          <button className="button is-primary" onClick={onConfirm}>
+            Yes
+          </button>
+          <button className="button" onClick={onCancel}>
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const ProductManagement = () => {
   const { products, setProducts } = useContext(Context);
   const [editingProductId, setEditingProductId] = useState(null);
   const [editedProduct, setEditedProduct] = useState({});
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [showUpdateConfirmation, setShowUpdateConfirmation] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -30,9 +51,9 @@ const ProjectManagement = () => {
   const deleteProduct = async (productId) => {
     try {
       await axios.delete(
-        `https://xw7qzi3dgg.execute-api.ap-south-1.amazonaws.com/dev/api/v1/products/${productId}`
+        `https://xw7qzi3dgg.execute-api.ap-south-1.amazonaws.com/dev/api/v1/deleteProduct?id=${productId}`
       );
-      setProducts(products.filter((product) => product.id !== productId));
+      window.location.reload();
     } catch (error) {
       console.log("Error deleting product:", error);
     }
@@ -58,22 +79,47 @@ const ProjectManagement = () => {
   };
 
   const saveProduct = async (productId) => {
-    console.log("editedProduct:", editedProduct)
     try {
       await axios.put(
-        `https://xw7qzi3dgg.execute-api.ap-south-1.amazonaws.com/dev/api/v1/updateProduct/`,
+        `https://xw7qzi3dgg.execute-api.ap-south-1.amazonaws.com/dev/api/v1/updateProduct?id=${productId}`,
         editedProduct
-      );
-      setProducts(
-        products.map((product) =>
-          product.id === productId ? editedProduct : product
-        )
       );
       setEditingProductId(null);
       setEditedProduct({});
+      window.location.reload();
     } catch (error) {
       console.log("Error updating product:", error);
     }
+  };
+
+  const handleDeleteConfirmation = (productId) => {
+    setShowDeleteConfirmation(true);
+    setEditingProductId(productId);
+  };
+
+  const handleUpdateConfirmation = (productId) => {
+    setShowUpdateConfirmation(true);
+    setEditingProductId(productId);
+  };
+
+  const handleDeleteConfirm = (productId) => {
+    deleteProduct(productId);
+    setShowDeleteConfirmation(false);
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteConfirmation(false);
+    setEditingProductId(null);
+  };
+
+  const handleUpdateConfirm = (productId) => {
+    saveProduct(productId);
+    setShowUpdateConfirmation(false);
+  };
+
+  const handleUpdateCancel = () => {
+    setShowUpdateConfirmation(false);
+    setEditingProductId(null);
   };
 
   return (
@@ -144,7 +190,7 @@ const ProjectManagement = () => {
                   <>
                     <button
                       className="button is-primary"
-                      onClick={() => saveProduct(product.id)}
+                      onClick={() => handleUpdateConfirmation(product._id)}
                     >
                       Save
                     </button>
@@ -156,13 +202,13 @@ const ProjectManagement = () => {
                   <>
                     <button
                       className="button is-info"
-                      onClick={() => editProduct(product.id)}
+                      onClick={() => editProduct(product._id)}
                     >
                       Edit
                     </button>
                     <button
                       className="button is-danger"
-                      onClick={() => deleteProduct(product.id)}
+                      onClick={() => handleDeleteConfirmation(product._id)}
                     >
                       Delete
                     </button>
@@ -176,8 +222,22 @@ const ProjectManagement = () => {
       <Link to="/" className="button is-link">
         Go Back
       </Link>
+      {showDeleteConfirmation && (
+        <ConfirmationModal
+          message="Are you sure you want to delete this product?"
+          onConfirm={() => handleDeleteConfirm(editingProductId)}
+          onCancel={handleDeleteCancel}
+        />
+      )}
+      {showUpdateConfirmation && (
+        <ConfirmationModal
+          message="Are you sure you want to save this product?"
+          onConfirm={() => handleUpdateConfirm(editingProductId)}
+          onCancel={handleUpdateCancel}
+        />
+      )}
     </div>
   );
 };
 
-export default ProjectManagement;
+export default ProductManagement;

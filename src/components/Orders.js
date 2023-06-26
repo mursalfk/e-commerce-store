@@ -8,25 +8,20 @@ const Orders = (props) => {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        if (user && user.accessLevel < 1) {
-            console.log(2)
-            setIsAdmin(true);
-        } else if (user && user.accessLevel >= 1) {
-            setIsAdmin(false);
-            console.log(1)
-        }
-
         const fetchOrders = async () => {
             try {
                 const response = await axios.get(
                     "https://zm06kfxmx0.execute-api.ap-south-1.amazonaws.com/dev/api/v1/getAllOrders?page=1&limit=10"
                 );
-                if (isAdmin === true) {
+                if (user && user.accessLevel === 0) {
                     setOrders(response.data.Orders);
                 } else {
-                    setOrders(response.data.Orders.filter((order) => order.checkoutCart.user === user.email));
+                    setOrders(
+                        response.data.Orders.filter(
+                            (order) => order.checkoutCart.user === user.email
+                        )
+                    );
                 }
-
             } catch (error) {
                 console.log("Error fetching orders:", error);
             }
@@ -47,14 +42,43 @@ const Orders = (props) => {
         return localTime;
     };
 
-    const markCompleted = (orderId) => {
-        // Implement the logic to mark an order as completed
-        console.log("Marked as completed:", orderId);
+    const markCompleted = async (order) => {
+        const orderId = order._id;
+        const editedOrder = {
+            ...order,
+            checkoutCart: {
+                ...order.checkoutCart,
+                status: "Completed",
+            },
+        };
+        try {
+            const response = await axios.put(
+                `https://zm06kfxmx0.execute-api.ap-south-1.amazonaws.com/dev/api/v1/updateOrder?id=${orderId}`,
+                editedOrder
+            );
+            if (response.status === 200) {
+                // Order updated successfully
+                const updatedOrders = orders.map((o) =>
+                    o._id === orderId ? { ...o, checkoutCart: editedOrder.checkoutCart } : o
+                );
+                setOrders(updatedOrders);
+            } else {
+                console.log("Error updating order:", response.data);
+            }
+        } catch (error) {
+            console.log("Error updating order:", error);
+        }
     };
 
-    const deleteOrder = (orderId) => {
-        // Implement the logic to delete an order
-        console.log("Deleted order:", orderId);
+    const deleteOrder = async(orderId) => {
+        try {
+            await axios.delete(
+                `https://zm06kfxmx0.execute-api.ap-south-1.amazonaws.com/dev/api/v1/deleteOrder?id=${orderId}`
+            );
+            window.location.reload();
+        } catch (error) {
+            console.log("Error deleting product:", error);
+        }
     };
 
     return (
@@ -97,12 +121,14 @@ const Orders = (props) => {
                                             <td>{formatLocalTime(order.checkoutCart.timestamp)}</td>
                                             <td>{order.checkoutCart.status}</td>
                                             <td>
-                                                <button
-                                                    className="button is-success"
-                                                    onClick={() => markCompleted(order._id)}
-                                                >
-                                                    Mark Completed
-                                                </button>
+                                                {order.checkoutCart.status === "Ordered" && (
+                                                    <button
+                                                        className="button is-success"
+                                                        onClick={() => markCompleted(order)}
+                                                    >
+                                                        Mark Completed
+                                                    </button>
+                                                )}
                                                 <button
                                                     className="button is-danger"
                                                     onClick={() => deleteOrder(order._id)}
@@ -117,12 +143,9 @@ const Orders = (props) => {
                         </>
                     ) : (
                         <>
-                            <div className="title has-text-grey-light">
-                                No orders found!
-                            </div>
+                            <div className="title has-text-grey-light">No orders found!</div>
                         </>
                     )}
-
                 </>
             ) : (
                 <div className="title has-text-grey-light">Login to view orders!</div>
