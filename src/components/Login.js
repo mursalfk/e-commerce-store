@@ -29,6 +29,7 @@ class Login extends Component {
   };
 
   render() {
+    const url = window.location.href;
     return !this.props.context.user ? (
       <>
         <div className="hero is-primary ">
@@ -74,7 +75,7 @@ class Login extends Component {
         </form>
       </>
     ) : (
-      <Redirect to="/" />
+      <Redirect to={url.includes("localhost") ? "/" : "/e-commerce-store"} className="button is-link" />
     );
   }
 }

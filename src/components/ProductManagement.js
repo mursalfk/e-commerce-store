@@ -121,6 +121,7 @@ const ProductManagement = () => {
     setShowUpdateConfirmation(false);
     setEditingProductId(null);
   };
+  const url = window.location.href;
 
   return (
     <div className="container">
@@ -219,7 +220,9 @@ const ProductManagement = () => {
           ))}
         </tbody>
       </table>
-      <Link to="/" className="button is-link">
+      {/* If local host url then */}
+      { }
+      <Link to={url.includes("localhost") ? "/" : "/e-commerce-store"} className="button is-link">
         Go Back
       </Link>
       {showDeleteConfirmation && (

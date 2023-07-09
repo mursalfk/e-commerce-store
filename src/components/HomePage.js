@@ -15,6 +15,8 @@ const Homepage = () => {
   };
 
   const introduction = generateIntroduction();
+  const url = window.location.href;
+
 
   return (
     <section className="hero is-primary is-fullheight">
@@ -29,26 +31,26 @@ const Homepage = () => {
                   <>
                     {isAdmin ? (
                       <>
-                        <Link to="/product-management" className="button is-primary is-rounded">
+                        <Link to={url.includes("localhost") ? "/product-management" : "/e-commerce-store/product-management"} className="button is-primary is-rounded">
                           Product Management
                         </Link>
-                        <Link to="/logout" className="button is-danger is-rounded">
+                        <Link to={url.includes("localhost") ? "/logout" : "/e-commerce-store/logout"} className="button is-danger is-rounded">
                           Logout
                         </Link>
                       </>
                     ) : (
                       <>
-                        <Link to="/products" className="button is-primary is-rounded">
+                        <Link to={url.includes("localhost") ? "/products" : "/e-commerce-store/products"} className="button is-primary is-rounded">
                           Products
                         </Link>
-                        <Link to="/cart" className="button is-info is-rounded">
+                        <Link to={url.includes("localhost") ? "/cart" : "/e-commerce-store/cart"} className="button is-info is-rounded">
                           Cart
                         </Link>
                       </>
                     )}
                   </>
                 ) : (
-                  <Link to="/e-commerce-store/login" className="button is-primary is-rounded">
+                  <Link to={url.includes("localhost") ? "/login" : "/e-commerce-store/login"} className="button is-primary is-rounded">
                     Login
                   </Link>
                 )}

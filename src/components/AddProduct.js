@@ -56,9 +56,10 @@ class AddProduct extends Component {
   render() {
     const { name, price, stock, shortDesc, description } = this.state;
     const { user } = this.props.context;
+    const url = window.location.href;
 
     return !(user && user.accessLevel < 1) ? (
-      <Redirect to="/" />
+      <Redirect to={url.includes("localhost") ? "/" : "/e-commerce-store"} />
     ) : (
       <section className="section">
         <div className="container">

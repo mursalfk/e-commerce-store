@@ -7,11 +7,12 @@ const Navbar = ({ user, logout, cart }) => {
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
+  const url = window.location.href;
 
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
-        <Link to="/" className="navbar-item">
+        <Link to={url.includes("localhost") ? "/" : "/e-commerce-store"} className="navbar-item">
           <b className="navbar-item is-size-4">ecommerce</b>
         </Link>
         <button
@@ -27,23 +28,23 @@ const Navbar = ({ user, logout, cart }) => {
       </div>
       <div className={`navbar-menu ${showMenu ? "is-active" : ""}`}>
         <div className="navbar-start">
-          <Link to="/products" className="navbar-item">
+          <Link to={url.includes("localhost") ? "/products" : "/e-commerce-store/products"} className="navbar-item">
             Products
           </Link>
-          <Link to="/about" className="navbar-item">
+          <Link to={url.includes("localhost") ? "/about" : "/e-commerce-store/about"} className="navbar-item">
             About
           </Link>
           {user && user.accessLevel < 1 && (
             <>
-              <Link to="/add-product" className="navbar-item">
+              <Link to={url.includes("localhost") ? "/add-products" : "/e-commerce-store/add-products"} className="navbar-item">
                 Add Product
               </Link>
-              <Link to="/project-management" className="navbar-item">
+              <Link to={url.includes("localhost") ? "/project-management" : "/e-commerce-store/project-management"} className="navbar-item">
                 Product Management
               </Link>
             </>
           )}
-          <Link to="/orders" className="navbar-item">
+          <Link to={url.includes("localhost") ? "/orders" : "/e-commerce-store/orders"} className="navbar-item">
             Orders
           </Link>
         </div>
@@ -54,11 +55,11 @@ const Navbar = ({ user, logout, cart }) => {
                 Logout
               </button>
             ) : (
-              <Link to="/e-commerce-store/login" className="button is-primary">
+              <Link to={url.includes("localhost") ? "/login" : "/e-commerce-store/login"} className="button is-primary">
                 Login
               </Link>
             )}
-            <Link to="/cart" className="navbar-item">
+            <Link to={url.includes("localhost") ? "/cart" : "/e-commerce-store/cart"} className="navbar-item">
               <span className="icon is-small">
                 <i className="fas fa-shopping-cart"></i>
               </span>
