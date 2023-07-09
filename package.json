@@ -1,6 +1,7 @@
 {
-  "name": "e-commerce",
+  "name": "e-commerce-store",
   "version": "0.1.0",
+  "homepage": "https://mursalfk.github.io/e-commerce-store/",
   "private": true,
   "engines": {
     "node": "16.x"

@@ -48,7 +48,7 @@ const Homepage = () => {
                     )}
                   </>
                 ) : (
-                  <Link to="/login" className="button is-primary is-rounded">
+                  <Link to="/e-commerce-store/login" className="button is-primary is-rounded">
                     Login
                   </Link>
                 )}

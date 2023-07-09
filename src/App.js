@@ -164,14 +164,14 @@ const App = () => {
         <Navbar user={user} logout={logout} cart={cart} />
         <div className="App">
           <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/cart" component={Cart} />
-            <Route exact path="/add-product" component={AddProduct} />
-            <Route exact path="/products" component={ProductList} />
-            <Route exact path="/project-management" component={ProjectManagement} />
-            <Route exact path="/orders" component={Orders} />
-            <Route exact path="/about" component={About} />
+            <Route exact path="/e-commerce-store" component={HomePage} />
+            <Route exact path="/e-commerce-store/login" component={Login} />
+            <Route exact path="/e-commerce-store/cart" component={Cart} />
+            <Route exact path="/e-commerce-store/add-product" component={AddProduct} />
+            <Route exact path="/e-commerce-store/products" component={ProductList} />
+            <Route exact path="/e-commerce-store/project-management" component={ProjectManagement} />
+            <Route exact path="/e-commerce-store/orders" component={Orders} />
+            <Route exact path="/e-commerce-store/about" component={About} />
           </Switch>
         </div>
       </Router>

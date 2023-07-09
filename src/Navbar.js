@@ -54,7 +54,7 @@ const Navbar = ({ user, logout, cart }) => {
                 Logout
               </button>
             ) : (
-              <Link to="/login" className="button is-primary">
+              <Link to="/e-commerce-store/login" className="button is-primary">
                 Login
               </Link>
             )}
