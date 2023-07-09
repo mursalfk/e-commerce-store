@@ -23,6 +23,9 @@ const App = () => {
   const [cart, setCart] = React.useState({});
   const [products, setProducts] = React.useState([]);
   const [popupVisible, setPopupVisible] = React.useState(false);
+  // Get the URL
+  const url = window.location.href;
+  console.log('--------------',url);
 
   const routerRef = React.useRef();
 
