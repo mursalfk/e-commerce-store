@@ -2,6 +2,8 @@ import React from "react";
 import { Switch, Route, Link, BrowserRouter as Router } from "react-router-dom";
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+// Import db.json file
+import db from './users_db.json';
 
 import AddProduct from './components/AddProduct';
 import Cart from './components/Cart';
@@ -41,29 +43,31 @@ const App = () => {
     fetchData();
   }, []);
 
-  const login = async (email, password) => {
-    const res = await axios.post(
-      'http://localhost:3001/login',
-      { email, password },
-    ).catch((res) => {
-      return { status: 401, message: 'Unauthorized' };
+  const login = (email, password) => {
+    return new Promise((resolve, reject) => {
+      // Perform login logic here
+      // If login is successful, resolve(true), otherwise resolve(false)
+      // Example implementation:
+      const user = db.users.find((user) => user.email === email && user.password === password);
+      if (user) {
+        const { email } = user;
+        const token = ""; // Generate token if needed
+        const accessLevel = email === 'admin@example.com' ? 0 : 1;
+        const authenticatedUser = {
+          email,
+          token,
+          accessLevel
+        };
+
+        setUser(authenticatedUser);
+        localStorage.setItem("user", JSON.stringify(authenticatedUser));
+        resolve(true);
+      } else {
+        resolve(false);
+      }
     });
-
-    if (res.status === 200) {
-      const { email } = jwt_decode(res.data.accessToken);
-      const user = {
-        email,
-        token: res.data.accessToken,
-        accessLevel: email === 'admin@example.com' ? 0 : 1
-      };
-
-      setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
-      return true;
-    } else {
-      return false;
-    }
   };
+
 
   const addToCart = (cartItem) => {
     let updatedCart = { ...cart };
@@ -111,8 +115,6 @@ const App = () => {
     checkoutCart.user = user.email;
     checkoutCart.status = "Ordered";
 
-    console.log(checkoutCart);
-
     await axios.post(
       "https://zm06kfxmx0.execute-api.ap-south-1.amazonaws.com/dev/api/v1/addOrder",
       { checkoutCart }
@@ -125,7 +127,6 @@ const App = () => {
       return p;
     });
 
-    // console.log(updatedProducts);
     setProducts(updatedProducts);
     clearCart();
   };
