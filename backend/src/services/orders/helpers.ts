@@ -12,7 +12,7 @@ export const generateResponse = (statusCode: number, body: object): APIGatewayPr
     body: JSON.stringify(body),
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "http://localhost:3000",
+      "Access-Control-Allow-Origin": "https://mursalfk.github.io/e-commerce-store",
     },
   }
 }
