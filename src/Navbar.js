@@ -13,7 +13,7 @@ const Navbar = ({ user, logout, cart }) => {
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <Link to="/" className="navbar-item">
-          <b className="navbar-item is-size-4">e-commerce</b>
+          <b className="navbar-item is-size-4">ecommerce</b>
         </Link>
         <button
           className={`navbar-burger burger ${showMenu ? "is-active" : ""}`}
