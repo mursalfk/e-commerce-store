@@ -75,7 +75,7 @@ class Login extends Component {
         </form>
       </>
     ) : (
-      <Redirect to={url.includes("localhost") ? "/" : "/e-commerce-store"} className="button is-link" />
+      <Redirect to="/" className="button is-link" />
     );
   }
 }

@@ -222,7 +222,7 @@ const ProductManagement = () => {
       </table>
       {/* If local host url then */}
       { }
-      <Link to={url.includes("localhost") ? "/" : "/e-commerce-store"} className="button is-link">
+      <Link to="/" className="button is-link">
         Go Back
       </Link>
       {showDeleteConfirmation && (
