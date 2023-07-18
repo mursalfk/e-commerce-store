@@ -29,11 +29,6 @@ const About = () => {
                       <td>Srinjan Ghosh</td>
                       <td>ghosh.2053796@studenti.uniroma1.it</td>
                     </tr>
-                    <tr>
-                      <td>2049050</td>
-                      <td>Muhammad Waseem Kalhoro</td>
-                      <td>kalhoro.2049050@studenti.uniroma1.it</td>
-                    </tr>
                   </tbody>
                 </table>
                 <p className="profName">Submitted to: Prof. Emiliano Casalicchio</p>
