@@ -201,12 +201,12 @@ const ProductManagement = () => {
                   </>
                 ) : (
                   <>
-                    <button
+                    {/* <button
                       className="button is-info"
                       onClick={() => editProduct(product._id)}
                     >
                       Edit
-                    </button>
+                    </button> */}
                     <button
                       className="button is-danger"
                       onClick={() => handleDeleteConfirmation(product._id)}
