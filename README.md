@@ -143,3 +143,6 @@ In conclusion, the future work for the scalable e-commerce application encompass
 # I. Conclusion
 
 The completion of the scalable e-commerce application demonstrates the successful utilization of cloud computing technologies and the microservice architecture to create a robust and efficient online platform. Through the implementation process, key objectives including scalability, robustness, inventory and order management, performance optimization, and cost-effectiveness were effectively addressed. The application leveraged tools such as ReactJS, MongoDB, and AWS Lambda, while Git/GitHub and Visual Studio Code facilitated collaborative development. Future work can focus on advanced features, mobile app development, performance optimization, and expanding analytics capabilities. Overall, the completed project provides a solid foundation for further growth and success in the e-commerce domain.
+
+[Project Report](report_resources/report.docx)
+[Project Presentation.docx](report_resources/report.pptx)
