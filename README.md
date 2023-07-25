@@ -1,8 +1,7 @@
 ## Project Presentation
 
-|              |              |
-|---------------------|---------------------|
 | ![Image 1](report_resources/Slide1.PNG) | ![Image 2](report_resources/Slide2.PNG) | 
+|---------------------|---------------------|
 | ![Image 3](report_resources/Slide3.PNG) | ![Image 4](report_resources/Slide4.PNG) |
 | ![Image 5](report_resources/Slide5.PNG) | ![Image 6](report_resources/Slide6.PNG) |
 | ![Image 7](report_resources/Slide7.PNG) | ![Image 8](report_resources/Slide8.PNG) |
