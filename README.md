@@ -1,3 +1,19 @@
+## Images Grid
+
+| Image 1             | Image 2             |
+|---------------------|---------------------|
+| ![Image 1](report_resources/Slide1.PNG) | ![Image 2](report_resources/Slide2.png) | 
+| ![Image 3](report_resources/Slide3.PNG) | ![Image 4](report_resources/Slide4.PNG) |
+| ![Image 5](report_resources/Slide5.PNG) | ![Image 6](report_resources/Slide6.PNG) |
+| ![Image 7](report_resources/Slide7.PNG) | ![Image 8](report_resources/Slide8.PNG) |
+| ![Image 9](report_resources/Slide9.PNG) | ![Image 10](report_resources/Slide10.PNG) |
+| ![Image 11](report_resources/Slide11.PNG) | ![Image 12](report_resources/Slide12.PNG) |
+| ![Image 13](report_resources/Slide13.PNG) | ![Image 14](report_resources/Slide14.PNG) |
+| ![Image 15](report_resources/Slide15.PNG) | ![Image 16](report_resources/Slide16.PNG) |
+| ![Image 17](report_resources/Slide17.PNG) | ![Image 18](report_resources/Slide18.PNG) |
+| ![Image 19](report_resources/Slide19.PNG) | ![Image 20](report_resources/Slide20.PNG) |
+| ![Image 21](report_resources/Slide21.PNG) | ![Image 22](report_resources/Slide22.PNG) |
+
 # A. Introduction
 
 This project report presents the design and implementation of a scalable e-commerce application using cloud computing technologies. The goal of this project was to leverage the benefits of cloud computing, particularly the microservice architecture, to create a robust and scalable platform for both customers and sellers. The e-commerce application consists of two main components: the frontend and the backend. The frontend is designed to provide an intuitive and user-friendly interface for customers to search for products, view detailed product information, place orders, and track their order status. On the other hand, the backend is focused on enabling sellers to list their products, manage their inventory, and track the products they need to deliver.
